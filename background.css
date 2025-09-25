@@ -1,0 +1,25 @@
+/* always love your rounded edges. */
+* {
+  border-radius: 5px;
+}
+
+body {
+  background-color: black;
+}
+
+p, label, li {
+  color: white;
+  font-size: 14px;
+}
+
+h1, h2, h3 {
+  color: #ff0044;
+}
+
+* {
+  font-family: monospace;
+}
+
+hr {
+  color: #008aff;
+}
