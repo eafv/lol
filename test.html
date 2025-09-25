@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cool Text Transitions</title>
+  <style>
+    body {
+      background: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+      line-height: 1.6;
+    }
+
+    .paragraph {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      margin-bottom: 20px;
+    }
+
+    /* Delay for each paragraph */
+    .paragraph:nth-child(1) { animation-delay: 0.2s; }
+    .paragraph:nth-child(2) { animation-delay: 0.4s; }
+    .paragraph:nth-child(3) { animation-delay: 0.6s; }
+    .paragraph:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="paragraph">test.</div> 
+  <div class="paragraph">test/</div> 
+  <div class="paragraph">test.</div> 
+  <div class="paragraph">test.</div> 
+
+</body>
+</html>
