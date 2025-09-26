@@ -1,65 +1,55 @@
 const express = require('express');
 const request = require('request');
 const { JSDOM } = require('jsdom');
+const URL = require('url').URL;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Serve static frontend
 app.use(express.static('public'));
 
-function rewriteHtml(body, baseUrl) {
+// Helper: rewrite links in HTML to point back to our proxy
+function rewriteHTML(body, baseUrl) {
   const dom = new JSDOM(body);
   const document = dom.window.document;
 
-  // Rewrite all links (<a href>) to proxy through us
+  // Rewrite all links
   [...document.querySelectorAll('a[href]')].forEach(a => {
     let href = a.getAttribute('href');
     if (!href) return;
 
-    if (href.startsWith('http')) {
-      a.setAttribute('href', `/proxy?url=${encodeURIComponent(href)}`);
-    } else if (href.startsWith('/')) {
-      // absolute path: prepend base url origin
-      try {
-        const origin = new URL(baseUrl).origin;
-        a.setAttribute('href', `/proxy?url=${encodeURIComponent(origin + href)}`);
-      } catch {
-        a.setAttribute('href', '#');
-      }
-    } else {
-      // relative path: resolve relative to baseUrl
-      try {
-        const resolved = new URL(href, baseUrl).href;
-        a.setAttribute('href', `/proxy?url=${encodeURIComponent(resolved)}`);
-      } catch {
-        a.setAttribute('href', '#');
-      }
+    // Ignore javascript: or mailto:
+    if (href.startsWith('javascript:') || href.startsWith('mailto:')) return;
+
+    // Convert relative URLs to absolute
+    try {
+      const absolute = new URL(href, baseUrl).href;
+      a.setAttribute('href', '/proxy?url=' + encodeURIComponent(absolute));
+    } catch (e) {
+      // ignore broken URLs
     }
   });
 
-  // Rewrite images, scripts, css to go through proxy as well (optional)
-  // To keep it simple, just rewrite images src
-  [...document.querySelectorAll('img[src]')].forEach(img => {
-    let src = img.getAttribute('src');
-    if (!src) return;
+  // Rewrite img, script, link(css) URLs similarly
+  [...document.querySelectorAll('img[src], script[src], link[href]')].forEach(el => {
+    let attr = el.tagName === 'LINK' ? 'href' : 'src';
+    let val = el.getAttribute(attr);
+    if (!val) return;
 
-    if (src.startsWith('http')) {
-      img.setAttribute('src', `/proxy?url=${encodeURIComponent(src)}`);
-    } else if (src.startsWith('/')) {
-      try {
-        const origin = new URL(baseUrl).origin;
-        img.setAttribute('src', `/proxy?url=${encodeURIComponent(origin + src)}`);
-      } catch {
-        img.setAttribute('src', '');
-      }
-    } else {
-      try {
-        const resolved = new URL(src, baseUrl).href;
-        img.setAttribute('src', `/proxy?url=${encodeURIComponent(resolved)}`);
-      } catch {
-        img.setAttribute('src', '');
-      }
-    }
+    try {
+      const absolute = new URL(val, baseUrl).href;
+      el.setAttribute(attr, '/proxy?url=' + encodeURIComponent(absolute));
+    } catch (e) {}
+  });
+
+  // Optional: rewrite forms to post back to proxy
+  [...document.querySelectorAll('form[action]')].forEach(form => {
+    let action = form.getAttribute('action');
+    try {
+      const absolute = new URL(action, baseUrl).href;
+      form.setAttribute('action', '/proxy?url=' + encodeURIComponent(absolute));
+    } catch (e) {}
   });
 
   return dom.serialize();
@@ -67,38 +57,52 @@ function rewriteHtml(body, baseUrl) {
 
 app.get('/proxy', (req, res) => {
   const url = req.query.url;
-  if (!url) return res.status(400).send('Missing url parameter');
+  if (!url) return res.status(400).send('Missing URL');
 
-  // Basic whitelist example - remove or add your own allowed sites for safety
-  const allowedHosts = ['www.tiktok.com', 'www.instagram.com', 'twitter.com', 'example.com'];
+  // Validate url
+  let targetUrl;
   try {
-    const host = new URL(url).hostname;
-    if (!allowedHosts.some(h => host.includes(h))) {
-      return res.status(403).send('Host not allowed.');
-    }
+    targetUrl = new URL(url);
   } catch {
     return res.status(400).send('Invalid URL');
   }
 
-  // Fetch the content
-  request({ url, headers: { 'User-Agent': 'Mozilla/5.0' } }, (error, response, body) => {
-    if (error || response.statusCode !== 200) {
-      return res.status(500).send('Failed to fetch the requested page.');
-    }
+  // Fetch requested URL with a real browser user agent
+  request(
+    {
+      url: targetUrl.href,
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
+      encoding: null, // to get body as Buffer
+    },
+    (error, response, body) => {
+      if (error || !response) {
+        return res.status(500).send('Error fetching the URL');
+      }
 
-    // Only rewrite for HTML content types
-    const contentType = response.headers['content-type'] || '';
-    if (contentType.includes('text/html')) {
-      const rewritten = rewriteHtml(body, url);
-      res.send(rewritten);
-    } else {
-      // For images, css, js etc. just pipe directly
-      res.setHeader('content-type', contentType);
-      res.send(body);
+      // Pass through headers (except some restricted ones)
+      Object.entries(response.headers).forEach(([key, value]) => {
+        if (['content-encoding', 'content-length', 'transfer-encoding', 'connection'].includes(key.toLowerCase())) {
+          return;
+        }
+        res.setHeader(key, value);
+      });
+
+      const contentType = response.headers['content-type'] || '';
+
+      if (contentType.includes('text/html')) {
+        // Rewrite HTML content
+        const bodyStr = body.toString('utf8');
+        const rewritten = rewriteHTML(bodyStr, targetUrl.href);
+        res.send(rewritten);
+      } else {
+        // Send non-HTML content raw
+        res.send(body);
+      }
     }
-  });
+  );
 });
 
+// Root serves the frontend
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
