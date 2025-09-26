@@ -23,7 +23,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid #333; /* straight line like iTunes */
+      border-bottom: 1px solid #333;
       position: fixed;
       top: 0;
       width: 100%;
@@ -38,7 +38,7 @@
     /* === MAIN CONTENT === */
     main {
       max-width: 900px;
-      margin: 120px auto 0 auto; /* space below fixed header */
+      margin: 120px auto 0 auto;
       padding: 20px;
       position: relative;
       z-index: 1;
@@ -68,20 +68,20 @@
       margin-bottom: 30px;
     }
 
-    /* Continue button styles */
+    /* === CONTINUE BUTTON === */
     .continue-btn-wrapper {
-      text-align: center;
-      margin-top: 60px;
+      margin-top: 40px;
+      text-align: left;
     }
 
     .continue-btn {
       display: inline-block;
-      padding: 12px 28px;
+      padding: 8px 20px;
       border: 1px solid #ffffff;
       border-radius: 30px;
       text-decoration: none;
       color: #ffffff;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
       opacity: 0;
       transform: translateY(40px);
@@ -101,7 +101,7 @@
 </head>
 <body>
 
-  <!-- Header like old iTunes -->
+  <!-- Header -->
   <header>
     <img src="rg.jpeg" alt="Logo">
   </header>
@@ -112,7 +112,7 @@
     </div>
 
     <div class="paragraph hidden">welcome</div>
-    <div class="paragraph hidden">version chanrg</div>
+    <div class="paragraph hidden">version 0.1</div>
     <div class="paragraph hidden"></div>
 
     <div class="continue-btn-wrapper">
@@ -133,7 +133,6 @@
       threshold: 0.2
     });
 
-    // Animate all hidden elements except the Continue button (which is visible from start)
     document.querySelectorAll('.hidden').forEach(el => {
       observer.observe(el);
     });
