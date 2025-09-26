@@ -5,46 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scramjet Embed</title>
   <style>
-    body {
+    /* === Reset & Base === */
+    * {
+      box-sizing: border-box;
       margin: 0;
-      background-color: #121212;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
     }
 
+    body {
+      background-color: #121212;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* === Back Button (Bottom-Left) === */
     .back-button {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       left: 20px;
-      padding: 10px 20px;
+      padding: 10px 18px;
       background: transparent;
       border: 1px solid white;
-      border-radius: 20px;
+      border-radius: 24px;
       color: white;
       text-decoration: none;
-      font-size: 1rem;
-      z-index: 999;
-      transition: background-color 0.3s ease;
+      font-size: 0.95rem;
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
 
     .back-button:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    iframe {
+    /* === Embed Container === */
+    .iframe-container {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Back button to homepage -->
+  <!-- Back button -->
   <a href="https://eafv.github.io/lol/" class="back-button">← Back</a>
 
-  <!-- Embedded site -->
-  <iframe src="https://scramjet.mercurywork.shop/"></iframe>
+  <!-- Embedded Scramjet -->
+  <div class="iframe-container">
+    <iframe src="https://scramjet.mercurywork.shop/" title="Scramjet API Host"></iframe>
+  </div>
 
 </body>
 </html>
