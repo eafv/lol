@@ -91,15 +91,6 @@
       transform: translateX(4px);
     }
 
-    /* TikTok embed */
-    .tiktok-wrapper {
-      margin-top: 40px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease-out;
-    }
-
-    /* Reveal class */
     .visible {
       opacity: 1 !important;
       transform: translateY(0) !important;
@@ -120,21 +111,11 @@
     <div class="paragraph hidden">welcome</div>
     <div class="paragraph hidden">version 0.1</div>
 
-    <!-- TikTok embed -->
-    <div class="tiktok-wrapper hidden">
-      <blockquote class="tiktok-embed"
-        cite="https://www.tiktok.com/@scout2015/video/6718335390845095173"
-        data-video-id="6718335390845095173"
-        style="max-width: 325px; min-width: 200px;">
-      </blockquote>
-    </div>
-
     <div class="continue-btn-wrapper hidden">
-      <a href="#" class="continue-btn">Continue →</a>
+      <a href="social.html" class="continue-btn">Continue →</a>
     </div>
   </main>
 
-  <!-- Scroll reveal -->
   <script>
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -149,9 +130,6 @@
       observer.observe(el);
     });
   </script>
-
-  <!-- TikTok embed script -->
-  <script async src="https://www.tiktok.com/embed.js"></script>
 
 </body>
 </html>
