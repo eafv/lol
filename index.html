@@ -16,17 +16,41 @@
     }
 
     main {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
+      position: relative;
+    }
+
+    .title-wrapper {
+      position: relative;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .title-line {
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 0;
+      background: none;
+    }
+
+    .title-line svg {
+      width: 100%;
+      height: 100%;
     }
 
     .title {
       display: inline-block;
       font-size: 2.5rem;
-      padding: 12px 20px;
+      padding: 12px 24px;
       background: rgba(200, 200, 200, 0.1);
       border-radius: 12px;
-      margin: 0 auto 60px;
+      position: relative;
+      z-index: 1;
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease-out;
@@ -49,7 +73,18 @@
 <body>
 
   <main>
-    <div class="title hidden">testing grounds</div>
+    <!-- Title with curved line behind -->
+    <div class="title-wrapper hidden">
+      <div class="title-line">
+        <!-- SVG curved line -->
+        <svg preserveAspectRatio="none" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,5 Q50,0 100,5" stroke="#888888" stroke-width="1.5" fill="none" />
+        </svg>
+      </div>
+      <div class="title">testing grounds</div>
+    </div>
+
+    <!-- Paragraphs -->
     <div class="paragraph hidden">not meant to be corny but, mainly undetected</div>
     <div class="paragraph hidden">welcome</div>
     <div class="paragraph hidden">an attempt to add websites.</div>
@@ -61,14 +96,13 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Optional: animate only once
+          observer.unobserve(entry.target); // animate only once
         }
       });
     }, {
-      threshold: 0.2 // how much of element must be visible
+      threshold: 0.2
     });
 
-    // Target all hidden elements
     document.querySelectorAll('.hidden').forEach(el => {
       observer.observe(el);
     });
