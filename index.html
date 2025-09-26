@@ -4,45 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Start Page</title>
-  <link rel="icon" href="nothingyet.lol" type="image/x-icon">
+  <link rel="icon" href="icon.png" type="image/png">
   <style>
     body {
       background: #121212;
       color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 80px 20px;
+      padding: 0;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
+    /* === HEADER === */
+    header {
+      background-color: #1a1a1a;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #333; /* straight line like iTunes */
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    header img {
+      height: 30px;
+      opacity: 0.9;
+    }
+
+    /* === MAIN CONTENT === */
     main {
       max-width: 900px;
-      margin: auto;
+      margin: 120px auto 0 auto; /* space below fixed header */
+      padding: 20px;
       position: relative;
       z-index: 1;
-    }
-
-    /* Curved line across the whole page */
-    .title-line-container {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100vw;
-      height: 60px;
-      z-index: 0;
-    }
-
-    .title-line-container svg {
-      width: 100%;
-      height: 100%;
     }
 
     .title-wrapper {
-      position: relative;
       text-align: center;
-      margin-bottom: 80px;
-      z-index: 1;
+      margin-bottom: 60px;
     }
 
     .title {
@@ -51,7 +55,6 @@
       padding: 12px 24px;
       background: rgba(200, 200, 200, 0.1);
       border-radius: 12px;
-      position: relative;
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease-out;
@@ -73,28 +76,23 @@
 </head>
 <body>
 
-  <!-- Curved line behind everything -->
-  <div class="title-line-container">
-    <svg preserveAspectRatio="none" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
-      <!-- Bending downward now -->
-      <path d="M0,5 Q50,10 100,5" stroke="#888888" stroke-width="1.5" fill="none" />
-    </svg>
-  </div>
+  <!-- Header like old iTunes -->
+  <header>
+    <img src="icon.png" alt="Logo">
+  </header>
 
   <main>
-    <!-- Title floats above curve -->
     <div class="title-wrapper hidden">
       <div class="title">testing grounds</div>
     </div>
 
-    <!-- Paragraphs -->
     <div class="paragraph hidden">not meant to be corny but, mainly undetected</div>
     <div class="paragraph hidden">welcome</div>
     <div class="paragraph hidden">an attempt to add websites.</div>
   </main>
 
   <script>
-    // Scroll-triggered reveal
+    // Scroll-triggered animation
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
