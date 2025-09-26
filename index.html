@@ -115,8 +115,8 @@
     <div class="paragraph hidden">version 0.1</div>
     <div class="paragraph hidden"></div>
 
-    <div class="continue-btn-wrapper hidden">
-      <a href="#" class="continue-btn">Continue →</a>
+    <div class="continue-btn-wrapper">
+      <a href="#" class="continue-btn visible">Continue →</a>
     </div>
   </main>
 
@@ -133,6 +133,7 @@
       threshold: 0.2
     });
 
+    // Animate all hidden elements except the Continue button (which is visible from start)
     document.querySelectorAll('.hidden').forEach(el => {
       observer.observe(el);
     });
