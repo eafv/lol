@@ -68,15 +68,40 @@
       margin-bottom: 30px;
     }
 
+    /* Continue button styles */
+    .continue-btn-wrapper {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .continue-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border: 1px solid #ffffff;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(40px);
+      cursor: pointer;
+    }
+
+    .continue-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+
     .visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
   </style>
 </head>
 <body>
 
-
+  <!-- Header like old iTunes -->
   <header>
     <img src="rg.jpeg" alt="Logo">
   </header>
@@ -86,9 +111,13 @@
       <div class="title">testing grounds</div>
     </div>
 
+    <div class="paragraph hidden">not meant to be corny but, mainly undetected</div>
     <div class="paragraph hidden">welcome</div>
-    <div class="paragraph hidden"></div>
-    <div class="paragraph hidden"></div>
+    <div class="paragraph hidden">an attempt to add websites.</div>
+
+    <div class="continue-btn-wrapper hidden">
+      <a href="#" class="continue-btn">Continue →</a>
+    </div>
   </main>
 
   <script>
