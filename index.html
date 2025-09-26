@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Start Page</title>
   <link rel="icon" href="nothingyet.lol" type="image/x-icon">
   <style>
@@ -11,52 +10,69 @@
       background: #121212;
       color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
-      padding: 40px;
-      line-height: 1.6;
       margin: 0;
+      padding: 80px 20px;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
     }
 
     .title {
+      display: inline-block;
       font-size: 2.5rem;
-      text-align: center;
+      padding: 12px 20px;
       background: rgba(200, 200, 200, 0.1);
-      padding: 20px 30px;
       border-radius: 12px;
-      margin-bottom: 40px;
+      margin: 0 auto 60px;
       opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease-out forwards;
-      animation-delay: 0.1s;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
     }
 
     .paragraph {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s ease-out forwards;
-      margin-bottom: 20px;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+      margin-bottom: 30px;
     }
 
-    .paragraph:nth-child(2) { animation-delay: 0.3s; }
-    .paragraph:nth-child(3) { animation-delay: 0.5s; }
-    .paragraph:nth-child(4) { animation-delay: 0.7s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
   <main>
-    <div class="title">testing grounds</div>
-    <div class="paragraph">not meant to be corny but, mainly undetected</div>
-    <div class="paragraph">welcome</div>
-    <div class="paragraph">an attempt to add websites.</div>
+    <div class="title hidden">testing grounds</div>
+    <div class="paragraph hidden">not meant to be corny but, mainly undetected</div>
+    <div class="paragraph hidden">welcome</div>
+    <div class="paragraph hidden">an attempt to add websites.</div>
   </main>
+
+  <script>
+    // Scroll-triggered reveal using Intersection Observer
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Optional: animate only once
+        }
+      });
+    }, {
+      threshold: 0.2 // how much of element must be visible
+    });
+
+    // Target all hidden elements
+    document.querySelectorAll('.hidden').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 
 </body>
 </html>
