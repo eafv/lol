@@ -14,8 +14,8 @@ body {
 	color: white;
 	font-family: "Inconsolata", monospace;
 	font-size: 45px;
-	top: 13%;
-	left: 25%;
+	top: 10%;
+	left: 10%;
 	height: 150px;
 	
 	animation: fadeSlideIn 1s ease-out forwards;
