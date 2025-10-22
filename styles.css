@@ -36,8 +36,8 @@ body {
 
 .group {
 	position: absolute;
-	top: 270px;
-	left: 100px;
+	top: 200px;
+	left: -50px;
 
 .menu details {
 	display: inline-block;
