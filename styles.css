@@ -16,7 +16,7 @@ body {
 	font-size: 45px;
 	top: 10%;
 	left: 10%;
-	height: 150px;
+	height: 10%;
 	
 	animation: fadeSlideIn 1s ease-out forwards;
 }
