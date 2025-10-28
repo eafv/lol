@@ -6,6 +6,6 @@ h1 {
 body {
 	background-image: url("background2.png");
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
 	height: 100vh;
 }
