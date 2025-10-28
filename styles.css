@@ -43,6 +43,7 @@ body {
 .version {
 	display: inline-block;
 	font-size: 40px;
+	color: #ffffff;
 
 	animation: fadeSlideInOtherWay 1s ease-out forwards;
 }
