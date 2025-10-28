@@ -1,5 +1,6 @@
 h1 {
-	color: #ffa032;
+	color: #ffffff;
+	font-family: monospace, inconsolata
 }
 
 
@@ -7,4 +8,8 @@ body {
 	background-image: url("background2.png");
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+
+.group {
+	color: #ffffff;
 }
