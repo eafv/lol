@@ -2,5 +2,8 @@ h1 {
 	color: #ffa032;
 }
 
-background-image: url("background2.png");
-background-repeat: no-repeat;
+
+body {
+	background-image: url("background2.png");
+	background-repeat: no-repeat;
+}
