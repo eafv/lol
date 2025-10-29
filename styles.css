@@ -15,7 +15,7 @@ body {
 	font-family: "Inconsolata", monospace;
 	font-size: 45px;
 	top: 13%;
-	left: 25%;
+	left: 15%;
 	height: 150px;
 	
 	animation: fadeSlideIn 1s ease-out forwards;
@@ -36,8 +36,8 @@ body {
 
 .group {
 	position: absolute;
-	top: 270px;
-	left: 500px;
+	top: 25%;
+	left: 50%;
 
 .menu details {
 	display: inline-block;
@@ -104,3 +104,4 @@ body {
 	width:245px;
 
 }
+
