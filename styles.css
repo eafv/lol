@@ -14,7 +14,7 @@ body {
 	color: white;
 	font-family: "Inconsolata", monospace;
 	font-size: 45px;
-	top: 13%;
+	top: 10%;
 	left: 15%;
 	height: 150px;
 	
@@ -36,8 +36,8 @@ body {
 
 .group {
 	position: absolute;
-	top: 25%;
-	left: 50%;
+	top: 15%;
+	left: 15%;
 
 .menu details {
 	display: inline-block;
@@ -104,4 +104,5 @@ body {
 	width:245px;
 
 }
+
 
