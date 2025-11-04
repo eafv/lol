@@ -5,7 +5,7 @@ h1 {
 body {
 	background-image: url("bg2.avif");
 	background-size: cover;
-	background-color: #121212
+	background-color: #121212;
 	background-repeat: no-repeat;
 }
 
@@ -106,6 +106,7 @@ body {
 	width:245px;
 
 }
+
 
 
 
